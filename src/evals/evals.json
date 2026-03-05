@@ -1,0 +1,98 @@
+{
+  "skill_name": "data-map",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a data map for Acme Corp — they're a B2B SaaS company that sells project management software. We're migrating their contacts and accounts from Salesforce, and their support tickets from Zendesk, into HubSpot. I've uploaded the exports below.",
+      "expected_output": "A well-formatted Excel spreadsheet with: (1) all Contact/Company/Ticket fields merged and deduplicated across Salesforce and Zendesk sources, (2) correct HubSpot native property names, (3) appropriate industry best practice suggestions for a B2B SaaS company, (4) a Legend sheet, (5) object groups colour-coded and clearly separated",
+      "files": [
+        "evals/files/Salesforce_Contacts.csv",
+        "evals/files/Salesforce_Accounts.csv",
+        "evals/files/Zendesk_Tickets.csv"
+      ],
+      "assertions": [
+        {
+          "id": "dedup_lastname",
+          "text": "There is only ONE row for 'Last name' (not separate rows for LastName, last_name, surname etc.) in the Contact section",
+          "type": "qualitative"
+        },
+        {
+          "id": "hubspot_native_fields",
+          "text": "HubSpot field names use proper native property names such as 'firstname', 'lastname', 'email', 'lifecyclestage' — not made-up names",
+          "type": "qualitative"
+        },
+        {
+          "id": "source_columns_populated",
+          "text": "The spreadsheet has separate columns for 'Salesforce' and 'Zendesk' with the original field names filled in correctly",
+          "type": "qualitative"
+        },
+        {
+          "id": "industry_suggestions_present",
+          "text": "At least 3 industry best practice field suggestions are included, relevant to B2B SaaS (e.g. MRR, renewal date, NPS, product tier)",
+          "type": "qualitative"
+        },
+        {
+          "id": "all_objects_covered",
+          "text": "The spreadsheet covers Contact, Company, and Ticket objects — not just one of them",
+          "type": "qualitative"
+        },
+        {
+          "id": "legend_sheet_present",
+          "text": "The output file has a second sheet named 'Legend' (or similar) explaining the columns",
+          "type": "qualitative"
+        },
+        {
+          "id": "dropdown_metadata",
+          "text": "Dropdown/select fields (e.g. lifecyclestage, hs_lead_status, hs_ticket_priority) have their valid options listed in the HubSpot field metadata column",
+          "type": "qualitative"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "hey can you build a data map for FitLife? they run a gym franchise across the UK, and they want to bring their member data from their gym management platform and their deal pipeline from their old spreadsheet system into HubSpot. The gym system export has member contact info and their membership details. I'll share the files.",
+      "expected_output": "A data map appropriate for a fitness/gym company, with Contact and Deal objects at minimum, industry best practices relevant to gym/fitness (e.g. membership tier, renewal date, check-in frequency, personal trainer assigned), HubSpot native fields correctly assigned",
+      "files": [],
+      "assertions": [
+        {
+          "id": "fitness_industry_suggestions",
+          "text": "Industry best practice column includes suggestions relevant to a gym or fitness business (e.g. membership type, expiry date, visit frequency, personal trainer)",
+          "type": "qualitative"
+        },
+        {
+          "id": "client_research_reflected",
+          "text": "The skill's output or preamble shows awareness of FitLife as a gym franchise in the UK",
+          "type": "qualitative"
+        },
+        {
+          "id": "hubspot_field_types_correct",
+          "text": "HubSpot field types are appropriate — dates are 'Date' not 'Single-line text', phone numbers are 'Phone number', etc.",
+          "type": "qualitative"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need a data map for a new client, Stonebridge Legal. They're a mid-size law firm and we're moving their contacts and matters (which will be a custom object in HubSpot) from their old case management system. The export I'm uploading has both contacts and case/matter info mixed together in one sheet — clients are contacts, matters are separate rows linked by client ID.",
+      "expected_output": "Data map correctly separates Contact fields from custom object (Matter/Case) fields. Custom object gets appropriate HubSpot field naming conventions. Industry best practices for legal services included. Transformation notes mention the need to split the combined source sheet.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "custom_object_handled",
+          "text": "The skill creates a section for a custom HubSpot object (Matter, Case, or similar) — not forcing everything into standard objects",
+          "type": "qualitative"
+        },
+        {
+          "id": "legal_industry_suggestions",
+          "text": "Industry best practice suggestions include fields relevant to law firms (e.g. practice area, case status, matter type, billing rate, retainer amount)",
+          "type": "qualitative"
+        },
+        {
+          "id": "transformation_for_split",
+          "text": "The Notes or Transformations column mentions that the source data needs to be split by record type before import",
+          "type": "qualitative"
+        }
+      ]
+    }
+  ]
+}
